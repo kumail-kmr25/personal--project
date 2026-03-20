@@ -5,11 +5,12 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const project = await prisma.project.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!project) {
@@ -17,16 +18,17 @@ export async function GET(
     }
 
     return NextResponse.json(project);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch project' }, { status: 500 });
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -34,32 +36,33 @@ export async function PATCH(
 
     const body = await req.json();
     const project = await prisma.project.update({
-      where: { id: params.id },
+      where: { id },
       data: body,
     });
 
     return NextResponse.json(project);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     await prisma.project.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: 'Project deleted successfully' });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to delete project' }, { status: 500 });
   }
 }
