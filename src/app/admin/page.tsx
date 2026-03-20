@@ -89,7 +89,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 p-10 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-[3rem] shadow-sm flex flex-col">
+        <div className="lg:col-span-2 p-10 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-5xl shadow-sm flex flex-col">
           <div className="flex items-center justify-between mb-10">
             <h3 className="text-lg font-bold uppercase tracking-tight">Submissions Trend</h3>
             <div className="flex items-center gap-2 text-emerald-500 font-bold text-xs uppercase bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/10">
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="p-10 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-[3rem] shadow-sm flex flex-col">
+        <div className="p-10 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-5xl shadow-sm flex flex-col">
           <div className="flex items-center justify-between mb-8">
              <h3 className="text-lg font-bold uppercase tracking-tight">Recent Activity</h3>
              <button className="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline uppercase tracking-widest">View All</button>
