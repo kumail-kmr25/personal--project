@@ -1,11 +1,27 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink, Github, TrendingUp, Zap, Star, Users, Clock, Target, LineChart, Trophy, CheckCircle, Cpu, Workflow } from 'lucide-react';
+import { 
+  ArrowRight, 
+  ExternalLink, 
+  Github, 
+  TrendingUp, 
+  Zap, 
+  Star, 
+  Users, 
+  Clock, 
+  Target, 
+  LineChart, 
+  Trophy, 
+  CheckCircle, 
+  Cpu, 
+  Workflow,
+  type LucideIcon 
+} from 'lucide-react';
 import { Project } from '@/hooks/use-projects';
 import Image from 'next/image';
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   TrendingUp, Zap, Star, Users, Clock, Target, LineChart, Trophy, CheckCircle, Cpu, Workflow
 };
 
@@ -14,14 +30,14 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const metrics = (project.metrics as any[]) || [];
+  const metrics = project.metrics || [];
 
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative rounded-[2rem] overflow-hidden bg-white dark:bg-slate-900 border border-border shadow-sm hover:shadow-2xl transition-all duration-500"
+      className="group relative rounded-4xl overflow-hidden bg-white dark:bg-slate-900 border border-border shadow-sm hover:shadow-2xl transition-all duration-500"
     >
       {/* Image Section */}
       <div className="aspect-video relative overflow-hidden">

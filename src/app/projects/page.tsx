@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Loader2, Search } from 'lucide-react';
 import Link from 'next/link';
-import { useProjects, Project } from '@/hooks/use-projects';
+import { useProjects } from '@/hooks/use-projects';
 import { ProjectCard } from '@/components/project-card';
 
 const CATEGORIES = ['All', 'E-Commerce', 'SaaS', 'Websites', 'API/Backend', 'Personal', 'Recent'];
@@ -109,7 +108,7 @@ export default function ProjectsPage() {
           <div className="flex justify-center pt-12">
             <button
               onClick={() => setVisibleCount(prev => prev + 6)}
-              className="px-10 py-4 bg-primary text-white rounded-[2rem] text-sm font-extrabold uppercase tracking-widest shadow-xl shadow-primary/30 hover:bg-primary-hover active:scale-95 transition-all"
+              className="px-10 py-4 bg-primary text-white rounded-4xl text-sm font-extrabold uppercase tracking-widest shadow-xl shadow-primary/30 hover:bg-primary-hover active:scale-95 transition-all"
             >
               Load More Projects ({filteredProjects.length - visibleCount} remaining)
             </button>
