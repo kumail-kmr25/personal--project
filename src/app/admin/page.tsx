@@ -6,12 +6,10 @@ import {
   BookOpen, 
   Briefcase, 
   MessageSquare,
-  ArrowUpRight,
+  MessageSquare,
   TrendingUp,
   Clock,
-  ExternalLink,
   ChevronRight,
-  Plus,
   Loader2,
   AlertCircle
 } from 'lucide-react';
