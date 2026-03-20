@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Loader2, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useProjects } from '@/hooks/use-projects';
