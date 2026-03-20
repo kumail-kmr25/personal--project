@@ -6,7 +6,6 @@ import {
   BookOpen, 
   Briefcase, 
   MessageSquare,
-  MessageSquare,
   TrendingUp,
   Clock,
   ChevronRight,
