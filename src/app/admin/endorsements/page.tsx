@@ -5,13 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Star, 
   Search, 
-  MoreVertical, 
-  CheckCircle2, 
-  XCircle, 
-  Clock, 
   User, 
   Loader2,
-  AlertCircle
+  AlertCircle,
+  CheckCircle2,
+  XCircle,
+  MoreVertical
 } from 'lucide-react';
 import { useEndorsements } from '@/hooks/use-endorsements';
 import toast from 'react-hot-toast';
@@ -29,7 +28,7 @@ export default function EndorsementsPage() {
     try {
       await updateStatus.mutateAsync({ id, status });
       toast.success(`Endorsement ${status.toLowerCase()} successfully`);
-    } catch (err) {
+    } catch {
       toast.error('Failed to update status');
     }
   };

@@ -14,7 +14,7 @@ export async function GET() {
       orderBy: { createdAt: 'desc' },
     });
     return NextResponse.json(submissions);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch submissions' }, { status: 500 });
   }
 }
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(submission);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to send submission' }, { status: 500 });
   }
 }

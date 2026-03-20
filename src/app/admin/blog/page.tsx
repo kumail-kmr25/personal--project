@@ -5,13 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Plus, 
   Search, 
-  Filter, 
-  MoreVertical, 
-  Eye, 
   Edit3, 
   Trash2, 
-  CheckCircle2, 
-  Clock, 
   Calendar,
   BarChart2,
   FileText,
@@ -87,7 +82,7 @@ export default function BlogPage() {
           {['All', 'PUBLISHED', 'DRAFT', 'SCHEDULED'].map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab as any)}
+              onClick={() => setActiveTab(tab as 'All' | 'PUBLISHED' | 'DRAFT' | 'SCHEDULED')}
               className={`px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
                 activeTab === tab 
                   ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' 

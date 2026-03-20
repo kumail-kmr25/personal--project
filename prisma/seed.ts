@@ -23,6 +23,111 @@ async function main() {
     });
   }
 
+  const projects = [
+    {
+      title: 'FashionCo E-Commerce',
+      description: 'A premium full-stack e-commerce platform with Stripe integration and real-time inventory.',
+      category: 'E-Commerce',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8',
+      techStack: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL'],
+      metrics: [
+        { label: 'Revenue', value: '+300%', icon: 'TrendingUp' },
+        { label: 'Load Time', value: '1.2s', icon: 'Zap' },
+      ],
+      year: 2024,
+      featured: true,
+      views: 1200,
+    },
+    {
+      title: 'SaaS Analytics Dashboard',
+      description: 'Complex data visualization platform for enterprise metrics and user behavior tracking.',
+      category: 'SaaS',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f',
+      techStack: ['React', 'Node.js', 'MongoDB', 'Chart.js'],
+      metrics: [
+        { label: 'Users', value: '10k+', icon: 'Users' },
+        { label: 'Latency', value: '<50ms', icon: 'Clock' },
+      ],
+      year: 2024,
+      featured: true,
+      views: 850,
+    },
+    {
+      title: 'Modern Law Firm Portfolio',
+      description: 'High-conversion business website focusing on performance and professional lead generation.',
+      category: 'Websites',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f',
+      techStack: ['Next.js', 'Prisma', 'Tailwind CSS', 'Framer Motion'],
+      metrics: [
+        { label: 'Conversion', value: '+120%', icon: 'Target' },
+        { label: 'Traffic', value: '5k/mo', icon: 'LineChart' },
+      ],
+      year: 2023,
+      featured: true,
+      views: 940,
+    },
+    {
+      title: 'High-Performance API Engine',
+      description: 'Scalable backend infrastructure supporting millions of requests with Redis caching.',
+      category: 'API/Backend',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1558494943-9839bd4d31e6',
+      techStack: ['Node.js', 'Express', 'Redis', 'Docker'],
+      metrics: [
+        { label: 'Requests', value: '1M/hr', icon: 'Zap' },
+        { label: 'Uptime', value: '99.99%', icon: 'CheckCircle' },
+      ],
+      year: 2023,
+      featured: true,
+      views: 3100,
+    },
+    {
+      title: 'Creative Interaction Portfolio',
+      description: 'Award-winning personal project showcasing advanced animations and 3D web experiences.',
+      category: 'Personal',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8',
+      techStack: ['Three.js', 'GSAP', 'React Three Fiber', 'WebGL'],
+      metrics: [
+        { label: 'Awards', value: '2 site of day', icon: 'Trophy' },
+        { label: 'Speed Score', value: '98', icon: 'Star' },
+      ],
+      year: 2024,
+      featured: true,
+      views: 5200,
+    },
+    {
+      title: 'AI-Powered CRM System',
+      description: 'Latest work integrating OpenAI GPT-4 for automated customer relationship management.',
+      category: 'Recent',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e',
+      techStack: ['Next.js', 'Python', 'OpenAI', 'LangChain'],
+      metrics: [
+        { label: 'Accuracy', value: '99%', icon: 'Cpu' },
+        { label: 'Automation', value: '80%', icon: 'Workflow' },
+      ],
+      year: 2024,
+      featured: true,
+      views: 1100,
+    },
+  ];
+
+  console.log('Seeding projects...');
+  for (const p of projects) {
+    await prisma.project.upsert({
+      where: { id: p.title.toLowerCase().replace(/\s+/g, '-') },
+      update: {},
+      create: {
+        id: p.title.toLowerCase().replace(/\s+/g, '-'),
+        ...p,
+      },
+    });
+  }
+
   console.log('Seeding initial admin user...');
   // Note: Password hashing should happen here if you were creating a new user, 
   // but we assume the user already exists from the first step of this task.

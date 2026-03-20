@@ -1,12 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
-  Filter, 
-  MoreVertical, 
-  Mail, 
   Trash2, 
   CheckCircle2, 
   Clock, 
@@ -16,7 +12,8 @@ import {
   Loader2,
   AlertCircle
 } from 'lucide-react';
-import { useSubmissions, Submission } from '@/hooks/use-submissions';
+import { useSubmissions } from '@/hooks/use-submissions';
+import { toast } from 'react-hot-toast';
 
 export default function SubmissionsPage() {
   const { submissions, isLoading, error, updateSubmission, deleteSubmission } = useSubmissions();
@@ -30,6 +27,34 @@ export default function SubmissionsPage() {
     const matchesStatus = statusFilter === 'All' || s.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  const exportToCSV = () => {
+    const headers = ['Name', 'Email', 'Project Type', 'Budget', 'Message', 'Status', 'Date Received'];
+    const rows = filteredSubmissions.map(s => [
+      s.name,
+      s.email,
+      s.projectType || 'General',
+      s.budget || 'N/A',
+      s.message.replace(/,/g, ';'), // Escape commas for CSV
+      s.status,
+      new Date(s.createdAt).toLocaleDateString()
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(e => e.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `submissions_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   if (isLoading) {
     return (
@@ -58,7 +83,10 @@ export default function SubmissionsPage() {
           <h1 className="text-2xl font-bold tracking-tight uppercase">Contact Submissions</h1>
           <p className="text-gray-500 dark:text-slate-400 text-sm mt-1 uppercase font-bold tracking-tight">Manage project inquiries and messages from potential clients.</p>
         </div>
-        <button className="flex items-center gap-2 px-6 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all">
+        <button 
+          onClick={exportToCSV}
+          className="flex items-center gap-2 px-6 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all uppercase tracking-tight"
+        >
           <Download className="w-4 h-4" />
           Export CSV
         </button>
@@ -79,7 +107,7 @@ export default function SubmissionsPage() {
           {['All', 'NEW', 'READ', 'DONE'].map((status) => (
             <button
               key={status}
-              onClick={() => setStatusFilter(status as any)}
+              onClick={() => setStatusFilter(status as 'All' | 'NEW' | 'READ' | 'DONE')}
               className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
                 statusFilter === status 
                   ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' 
@@ -140,17 +168,27 @@ export default function SubmissionsPage() {
                       {s.status}
                     </span>
                   </td>
-                  <td className="p-6 text-right">
+                   <td className="p-6 text-right">
                     <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
                       <button 
-                        onClick={() => updateSubmission.mutate({ id: s.id, status: 'DONE' })}
+                        onClick={() => {
+                          updateSubmission.mutate({ id: s.id, status: 'DONE' });
+                          toast.success('Inquiry marked as done');
+                        }}
                         className="p-2.5 bg-emerald-500/10 text-emerald-600 rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm"
+                        title="Mark as Done"
                       >
                         <CheckCircle2 className="w-4 h-4" />
                       </button>
                       <button 
-                        onClick={() => deleteSubmission.mutate(s.id)}
+                        onClick={() => {
+                          if (window.confirm('Are you sure you want to delete this submission?')) {
+                             deleteSubmission.mutate(s.id);
+                             toast.success('Inquiry deleted');
+                          }
+                        }}
                         className="p-2.5 bg-rose-500/10 text-rose-600 rounded-xl hover:bg-rose-500 hover:text-white transition-all shadow-sm"
+                        title="Delete"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

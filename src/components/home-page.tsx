@@ -38,6 +38,8 @@ import { useProjects } from '@/hooks/use-projects';
 import { useBlog } from '@/hooks/use-blog';
 import { useEndorsements } from '@/hooks/use-endorsements';
 import { useSettings } from '@/hooks/use-settings';
+import { ProjectCard } from './project-card';
+import Link from 'next/link';
 
 type SkillTab = 'frontend' | 'backend' | 'database' | 'devops';
 
@@ -321,56 +323,14 @@ export function HomePage() {
                  <h2 className='text-4xl font-extrabold mt-4 tracking-tight uppercase'>Featured Projects</h2>
                  <p className='text-lg text-text-secondary mt-4 font-medium'>Real results from architectural excellence.</p>
               </div>
-              <button className="px-8 py-3 bg-white dark:bg-slate-900 border border-border rounded-2xl text-xs font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
+              <Link href="/projects" className="px-8 py-3 bg-white dark:bg-slate-900 border border-border rounded-2xl text-xs font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
                 See All Work
-              </button>
+              </Link>
             </div>
 
             <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
-              {projects.map((project, index) => (
-                <motion.article
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className='group relative rounded-[2.5rem] overflow-hidden bg-white dark:bg-slate-900 border border-border shadow-sm hover:shadow-2xl transition-all duration-500'
-                >
-                  <div className='aspect-4/3 relative overflow-hidden'>
-                     <img 
-                      src={project.image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f'} 
-                      alt={project.title} 
-                      className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700' 
-                     />
-                     <div className='absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity' />
-                     <div className='absolute top-6 left-6 flex flex-wrap gap-2'>
-                        {project.techStack.slice(0, 2).map((tag: string) => (
-                          <span key={tag} className='px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[9px] font-extrabold text-white border border-white/20 uppercase tracking-widest'>
-                             {tag}
-                          </span>
-                        ))}
-                     </div>
-                  </div>
-                  <div className='p-8 space-y-4'>
-                     <h3 className='text-xl font-extrabold uppercase tracking-tight'>{project.title}</h3>
-                     <p className='text-sm text-text-secondary line-clamp-2 font-medium'>
-                        {project.description || "A premium solution built for scale and aesthetic excellence."}
-                     </p>
-                     <div className='flex items-center justify-between pt-4 border-t border-border/50'>
-                        <div className="flex -space-x-2">
-                           <div className="w-8 h-8 rounded-full bg-surface border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                              <Code2 className="w-3 h-3 text-primary" />
-                           </div>
-                           <div className="w-8 h-8 rounded-full bg-surface border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                              <Sparkles className="w-3 h-3 text-primary" />
-                           </div>
-                        </div>
-                        <a href="#" className='p-3 bg-primary/10 text-primary rounded-xl hover:bg-primary hover:text-white transition-all'>
-                           <ArrowRight className='w-4 h-4' />
-                        </a>
-                     </div>
-                  </div>
-                </motion.article>
+              {projects.slice(0, 6).map((project) => (
+                <ProjectCard key={project.id} project={project} />
               ))}
               {projects.length === 0 && (
                 <div className="col-span-full py-20 text-center border-2 border-dashed border-border rounded-4xl bg-surface/30">

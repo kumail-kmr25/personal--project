@@ -14,7 +14,7 @@ export async function GET() {
       orderBy: { createdAt: 'desc' },
     });
     return NextResponse.json(subscribers);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch subscribers' }, { status: 500 });
   }
 }
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(subscriber);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 });
   }
 }
