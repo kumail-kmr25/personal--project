@@ -40,8 +40,10 @@ import { ContactInput, contactSchema } from '@/utils/contact-schema';
 import { useProjects } from '@/hooks/use-projects';
 import { useBlog } from '@/hooks/use-blog';
 import { useEndorsements } from '@/hooks/use-endorsements';
+import { BLOG_POSTS } from '@/data/blog-posts';
 import { useSettings } from '@/hooks/use-settings';
 import { ProjectCard } from './project-card';
+import { TestimonialsMarquee } from './testimonials-marquee';
 import Link from 'next/link';
 
 
@@ -143,6 +145,31 @@ export function HomePage() {
     endorsements.filter(e => e.status === 'APPROVED'), 
     [endorsements]
   );
+
+  const displayPosts = useMemo(() => {
+    if (posts.length > 0) {
+      return posts.map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        excerpt: p.excerpt || '',
+        category: p.category || 'Blog',
+        image: p.image,
+        createdAt: p.createdAt,
+        readingTime: 5,
+      }));
+    }
+    return BLOG_POSTS.slice(0, 6).map((p) => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      excerpt: p.excerpt,
+      category: p.category,
+      image: p.image,
+      createdAt: p.publishedAt,
+      readingTime: p.readingTime,
+    }));
+  }, [posts]);
 
   const siteSettings = useMemo(() => 
     settings.reduce((acc, s) => ({ ...acc, [s.key]: String(s.value) }), {} as Record<string, string>),
@@ -530,6 +557,8 @@ export function HomePage() {
           </div>
         </section>
 
+        <TestimonialsMarquee />
+
         {/* SERVICES [STATIC BUT CONSISTENT] */}
         <section id='services' className='py-32'>
            <div className='mx-auto max-w-7xl px-6 lg:px-8'>
@@ -571,13 +600,13 @@ export function HomePage() {
                    <SectionBadge label='Insights' />
                    <h2 className='text-4xl font-extrabold mt-4 tracking-tight uppercase text-text-primary'>Latest from the Blog</h2>
                 </div>
-                <button className='text-sm font-extrabold uppercase tracking-widest text-primary flex items-center gap-2 group'>
+                <Link href="/blog" className='text-sm font-extrabold uppercase tracking-widest text-primary flex items-center gap-2 group'>
                    Explore all articles <ArrowRight className='w-4 h-4 group-hover:translate-x-1 transition-transform' />
-                </button>
+                </Link>
               </div>
 
               <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
-                 {posts.slice(0, 3).map((post) => (
+                 {displayPosts.slice(0, 3).map((post) => (
                    <motion.article
                      key={post.id}
                      whileHover={{ y: -10 }}
@@ -598,19 +627,19 @@ export function HomePage() {
                             {new Date(post.createdAt).toLocaleDateString()}
                             <span>&middot;</span>
                             <Clock3 className="w-3 h-3" />
-                            5 min read
+                            {post.readingTime} min read
                          </div>
                          <h3 className='text-xl font-extrabold uppercase leading-tight mb-4 transition-colors text-text-primary'>{post.title}</h3>
                          <p className='text-sm text-text-secondary line-clamp-2 mb-6 font-medium'>{post.excerpt}</p>
                          <div className="mt-auto pt-6 border-t border-border/50">
-                            <a href={`/blog/${post.slug}`} className='text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 text-text-primary hover:text-primary'>
+                            <Link href={`/blog/${post.slug}`} className='text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 text-text-primary hover:text-primary'>
                                 Read Article <ArrowRight className="w-3 h-3" />
-                            </a>
+                            </Link>
                          </div>
                       </div>
                    </motion.article>
                  ))}
-                 {posts.length === 0 && (
+                 {displayPosts.length === 0 && (
                    <div className="col-span-full py-20 text-center border-2 border-dashed border-border rounded-4xl bg-surface/30">
                       <BookOpen className="w-12 h-12 text-border mx-auto mb-4" />
                       <p className="text-sm font-extrabold uppercase tracking-widest text-text-muted">New articles coming soon!</p>

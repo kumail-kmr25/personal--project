@@ -24,8 +24,9 @@ import {
   ExternalLink,
   Github
 } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
+import { LogOut } from 'lucide-react';
 
 interface MenuItem {
   icon: ComponentType<{ className?: string }>;
@@ -71,6 +72,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle('dark');
   };
+
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark bg-slate-950 shadow-slate-950/20' : 'bg-gray-50'} text-slate-900 dark:text-slate-100 flex transition-colors duration-200`}>
@@ -164,6 +169,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               title="Go to Workspace"
             >
               {isSidebarCollapsed ? <ExternalLink className="w-4 h-4" /> : <>Workspace <ExternalLink className="w-3 h-3" /></>}
+            </button>
+            <button
+              onClick={() => signOut({ callbackUrl: '/admin/login' })}
+              className={`h-8 ${isSidebarCollapsed ? 'w-8 shrink-0 p-0' : 'px-3'} rounded-lg border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 flex items-center justify-center gap-2 transition-all`}
+              title="Logout"
+            >
+              <LogOut className="w-4 h-4" />
+              {!isSidebarCollapsed && <span className="text-[11px] font-bold uppercase">Logout</span>}
             </button>
           </div>
         </div>

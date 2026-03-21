@@ -114,6 +114,51 @@ async function main() {
       featured: true,
       views: 1100,
     },
+    {
+      title: 'Healthcare Booking Platform',
+      description: 'HIPAA-compliant appointment booking system with reminders and patient portal.',
+      category: 'Healthcare',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d',
+      techStack: ['Next.js', 'PostgreSQL', 'Stripe', 'Twilio', 'SendGrid'],
+      metrics: [
+        { label: 'No-Shows', value: '-40%', icon: 'CheckCircle' },
+        { label: 'Bookings', value: '1K/mo', icon: 'Users' },
+      ],
+      year: 2024,
+      featured: true,
+      views: 890,
+    },
+    {
+      title: 'Fitness Social Network',
+      description: 'MVP social platform for fitness enthusiasts with challenges and leaderboards.',
+      category: 'Fitness',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48',
+      techStack: ['Next.js', 'MongoDB', 'Socket.io', 'AWS S3', 'Redis'],
+      metrics: [
+        { label: 'Users', value: '15k', icon: 'Users' },
+        { label: 'Posts', value: '1M+', icon: 'TrendingUp' },
+      ],
+      year: 2023,
+      featured: true,
+      views: 2100,
+    },
+    {
+      title: 'Restaurant Ordering System',
+      description: 'Digital menu and online ordering with kitchen management for Bella Cucina.',
+      category: 'Restaurant',
+      status: 'PUBLISHED' as const,
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4',
+      techStack: ['Next.js', 'TypeScript', 'Prisma', 'Stripe'],
+      metrics: [
+        { label: 'Orders', value: '1.2k/mo', icon: 'TrendingUp' },
+        { label: 'Revenue', value: '+180%', icon: 'Zap' },
+      ],
+      year: 2024,
+      featured: true,
+      views: 1200,
+    },
   ];
 
   console.log('Seeding projects...');

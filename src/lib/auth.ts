@@ -29,11 +29,18 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        const email = parsed.data.email.toLowerCase().trim();
+        const AUTHORIZED_EMAIL = 'kumailkmr.dev@gmail.com';
+
+        if (email !== AUTHORIZED_EMAIL) {
+          return null;
+        }
+
         const user = await prisma.user.findUnique({
-          where: { email: parsed.data.email },
+          where: { email: AUTHORIZED_EMAIL },
         });
 
-        if (!user) {
+        if (!user || user.role !== 'ADMIN') {
           return null;
         }
 
@@ -56,6 +63,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as { role?: string }).role ?? 'USER';
+        token.email = user.email ?? '';
       }
 
       return token;
@@ -70,7 +78,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: '/login',
+    signIn: '/admin/login',
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

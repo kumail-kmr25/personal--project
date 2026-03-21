@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { Project } from '@/hooks/use-projects';
 import Image from 'next/image';
+import Link from 'next/link';
+import { getCaseStudySlugForProject } from '@/data/project-case-study-map';
 
 const iconMap: Record<string, LucideIcon> = {
   TrendingUp, Zap, Star, Users, Clock, Target, LineChart, Trophy, CheckCircle, Cpu, Workflow
@@ -126,15 +128,27 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Primary CTA */}
         <div className="pt-4">
-          <a
-            href={`/projects/${project.id}`}
-            className="flex items-center justify-between w-full p-4 bg-surface rounded-2xl border border-border group/btn hover:bg-primary hover:border-primary transition-all duration-300"
-          >
-<span className="text-[10px] font-extrabold uppercase tracking-widest text-text-primary group-hover/btn:text-white transition-colors">
-            View Case Study
-          </span>
-            <ArrowRight className="w-4 h-4 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
-          </a>
+          {getCaseStudySlugForProject(project.id) ? (
+            <Link
+              href={`/case-studies/${getCaseStudySlugForProject(project.id)}`}
+              className="flex items-center justify-between w-full p-4 bg-surface rounded-2xl border border-border group/btn hover:bg-primary hover:border-primary transition-all duration-300"
+            >
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-text-primary group-hover/btn:text-white transition-colors">
+                View Case Study
+              </span>
+              <ArrowRight className="w-4 h-4 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
+            </Link>
+          ) : (
+            <Link
+              href={`/projects/${project.id}`}
+              className="flex items-center justify-between w-full p-4 bg-surface rounded-2xl border border-border group/btn hover:bg-primary hover:border-primary transition-all duration-300"
+            >
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-text-primary group-hover/btn:text-white transition-colors">
+                View Project
+              </span>
+              <ArrowRight className="w-4 h-4 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
+            </Link>
+          )}
         </div>
       </div>
     </motion.article>
