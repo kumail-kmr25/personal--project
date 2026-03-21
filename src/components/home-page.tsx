@@ -318,7 +318,7 @@ export function HomePage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
-                    src="/images/professional-photo.jpg" 
+                    src="https://github.com/kumail-kmr25.png" 
                     alt="Kumail - Full-Stack Developer"
                     className="w-full h-full object-cover rounded-full shadow-2xl border-8 border-surface aspect-square"
                   />

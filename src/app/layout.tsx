@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { DM_Sans, Space_Grotesk, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
 import { RootProviders } from '@/components/providers/root-providers';
-import { LoadingProvider } from '@/components/loading-provider';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -37,9 +36,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className='min-h-screen bg-background text-text-primary antialiased'>
-        <LoadingProvider>
-          <RootProviders>{children}</RootProviders>
-        </LoadingProvider>
+        <RootProviders>{children}</RootProviders>
       </body>
     </html>
   );
