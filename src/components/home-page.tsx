@@ -11,7 +11,6 @@ import {
   MapPin,
   Menu,
   Moon,
-  Sparkles,
   Star,
   Sun,
   Twitter,
@@ -22,12 +21,11 @@ import {
   Loader2,
   Zap,
   ShoppingCart,
-  UserRound,
-  Users
+  UserRound
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -41,7 +39,6 @@ import { useSettings } from '@/hooks/use-settings';
 import { ProjectCard } from './project-card';
 import Link from 'next/link';
 
-type SkillTab = 'frontend' | 'backend' | 'database' | 'devops';
 
 type ServiceCard = {
   id: string;
@@ -53,12 +50,6 @@ type ServiceCard = {
   icon: ComponentType<{ className?: string }>;
 };
 
-type SkillCard = {
-  name: string;
-  projects: string;
-  score: number;
-  level: string;
-};
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -109,12 +100,6 @@ const services: ServiceCard[] = [
   },
 ];
 
-const stackTabs: { id: SkillTab; label: string }[] = [
-  { id: 'frontend', label: 'Frontend' },
-  { id: 'backend', label: 'Backend' },
-  { id: 'database', label: 'Database' },
-  { id: 'devops', label: 'DevOps' },
-];
 
 const budgetOptions = [
   'Select budget range',
@@ -155,7 +140,7 @@ export function HomePage() {
   );
 
   const siteSettings = useMemo(() => 
-    settings.reduce((acc, s) => ({ ...acc, [s.key]: s.value }), {} as any),
+    settings.reduce((acc, s) => ({ ...acc, [s.key]: String(s.value) }), {} as Record<string, string>),
     [settings]
   );
 
@@ -204,7 +189,7 @@ export function HomePage() {
       });
       toast.success('Thanks ' + values.firstName + '! Your message was received.');
       reset();
-    } catch (err) {
+    } catch {
       toast.error('Failed to send message. Please try again.');
     }
   };
@@ -216,7 +201,7 @@ export function HomePage() {
         <div className='mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 lg:px-8'>
           <a href='#home' className='flex items-center gap-2 text-xl font-bold tracking-tight'>
             <span className='text-primary'>&lt;</span>
-            <span>{siteSettings['site_name']?.split(' ')[0] || 'kk'}</span>
+            <span>{String(siteSettings['site_name'] || 'kk').split(' ')[0]}</span>
             <span className='text-primary'> /&gt;</span>
           </a>
           <div className='hidden items-center gap-8 md:flex'>
@@ -298,9 +283,9 @@ export function HomePage() {
                     { val: '15+', lab: 'Happy Clients', color: 'teal' },
                     { val: '<1.2s', lab: 'Load Time', color: 'blue' },
                     { val: '98%', lab: 'Satisfaction', color: 'purple' },
-                  ].map((stat, i) => (
+                  ].map((stat, statIndex) => (
                     <motion.div
-                      key={i}
+                      key={statIndex}
                       whileHover={{ y: -8, scale: 1.02 }}
                       className='p-8 rounded-4xl border border-border/50 bg-surface/50 backdrop-blur-md shadow-2xl space-y-2'
                     >
@@ -350,7 +335,7 @@ export function HomePage() {
                  <h2 className='text-5xl font-extrabold mt-6 tracking-tight uppercase'>Premium Solutions</h2>
               </div>
               <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-4'>
-                 {services.map((s, i) => (
+                 {services.map((s) => (
                    <motion.div
                     key={s.id}
                     whileHover={{ y: -10 }}
@@ -396,6 +381,7 @@ export function HomePage() {
                      className='flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-border shadow-sm overflow-hidden'
                    >
                       <div className='aspect-video relative overflow-hidden'>
+                         {/* eslint-disable-next-line @next/next/no-img-element */}
                          <img src={post.image || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085'} alt={post.title} className='w-full h-full object-cover' />
                          <div className='absolute top-4 right-4'>
                             <span className='px-4 py-1.5 bg-black/50 backdrop-blur-md rounded-full text-[9px] font-extrabold text-white uppercase tracking-widest'>
@@ -584,7 +570,7 @@ export function HomePage() {
                ].map(s => (
                  <a 
                   key={s.key} 
-                  href={siteSettings[s.key] || '#'} 
+                  href={String(siteSettings[s.key] || '#')} 
                   className='w-12 h-12 rounded-2xl bg-surface border border-border flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm'
                  >
                     <s.icon className='w-5 h-5' />

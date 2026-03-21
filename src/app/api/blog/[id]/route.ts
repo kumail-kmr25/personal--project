@@ -5,26 +5,6 @@ import { authOptions } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    const { id } = await params;
-    const project = await prisma.project.findUnique({
-      where: { id },
-    });
-
-    if (!project) {
-      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
-    }
-
-    return NextResponse.json(project);
-  } catch {
-    return NextResponse.json({ error: 'Failed to fetch project' }, { status: 500 });
-  }
-}
-
 export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -37,14 +17,14 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const project = await prisma.project.update({
+    const post = await prisma.blogPost.update({
       where: { id },
       data: body,
     });
 
-    return NextResponse.json(project);
+    return NextResponse.json(post);
   } catch {
-    return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to update post' }, { status: 500 });
   }
 }
 
@@ -59,12 +39,12 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await prisma.project.delete({
+    await prisma.blogPost.delete({
       where: { id },
     });
 
-    return NextResponse.json({ message: 'Project deleted successfully' });
+    return NextResponse.json({ message: 'Post deleted' });
   } catch {
-    return NextResponse.json({ error: 'Failed to delete project' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 });
   }
 }

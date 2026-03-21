@@ -47,6 +47,7 @@ export function useEndorsements() {
     endorsements,
     isLoading,
     error,
+    createEndorsement,
     updateStatus,
   };
 }

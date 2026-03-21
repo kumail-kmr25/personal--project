@@ -10,11 +10,8 @@ import {
   FolderPlus, 
   Trash2, 
   Filter, 
-  Download, 
-  FileText, 
   Image as ImageIcon,
   File,
-  Video,
   CheckSquare,
   Loader2,
   AlertCircle
@@ -123,7 +120,10 @@ export default function MediaPage() {
             >
               <div className="aspect-square relative overflow-hidden bg-gray-50 dark:bg-slate-800">
                 {asset.type.startsWith('image/') ? (
-                   <img src={asset.url} alt={asset.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                   <>
+                     {/* eslint-disable-next-line @next/next/no-img-element */}
+                     <img src={asset.url} alt={asset.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                   </>
                 ) : (
                    <div className="w-full h-full flex items-center justify-center">
                       <File className="w-12 h-12 text-gray-300" />
@@ -176,4 +176,3 @@ export default function MediaPage() {
     </div>
   );
 }
- Kinder

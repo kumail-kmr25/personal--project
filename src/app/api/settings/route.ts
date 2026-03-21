@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
@@ -12,7 +14,7 @@ export async function GET() {
 
     const settings = await prisma.systemSettings.findMany();
     return NextResponse.json(settings);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
 }
@@ -34,7 +36,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(setting);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to update setting' }, { status: 500 });
   }
 }

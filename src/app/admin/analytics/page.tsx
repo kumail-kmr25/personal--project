@@ -2,12 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { 
-  BarChart3, 
   Users, 
-  MousePointer2, 
-  Clock, 
   ArrowUpRight, 
-  ArrowDownRight,
   Calendar,
   ChevronDown,
   Download,
@@ -158,7 +154,7 @@ export default function AnalyticsPage() {
                     dataKey="value"
                   >
                     {[0, 1, 2, 3].map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} cornerRadius={10} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />

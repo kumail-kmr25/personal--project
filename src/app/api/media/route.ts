@@ -14,7 +14,7 @@ export async function GET() {
       orderBy: { createdAt: 'desc' },
     });
     return NextResponse.json(media);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch media' }, { status: 500 });
   }
 }
@@ -33,7 +33,7 @@ export async function DELETE(req: Request) {
 
     await prisma.mediaAsset.delete({ where: { id } });
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to delete media' }, { status: 500 });
   }
 }

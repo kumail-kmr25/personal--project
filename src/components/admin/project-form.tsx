@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Project, useProjects } from '@/hooks/use-projects';
-import { Loader2, Save, X } from 'lucide-react';
+import { Loader2, Save } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const projectSchema = z.object({
@@ -17,7 +17,7 @@ const projectSchema = z.object({
     github: z.string().url().optional().or(z.literal('')),
     external: z.string().url().optional().or(z.literal('')),
   }).optional(),
-  techStack: z.string().transform(val => val.split(',').map(s => s.trim())),
+  techStack: z.string().min(1, 'Tech stack is required'),
 });
 
 type ProjectFormValues = z.infer<typeof projectSchema>;
@@ -42,21 +42,26 @@ export function ProjectForm({ project, onSuccess }: ProjectFormProps) {
         github: project?.links?.github || '',
         external: project?.links?.external || '',
       },
-      techStack: (project?.techStack || []).join(', ') as any,
+      techStack: (project?.techStack || []).join(', '),
     }
   });
 
   const onSubmit = async (data: ProjectFormValues) => {
     try {
+      const payload = {
+        ...data,
+        techStack: data.techStack.split(',').map(s => s.trim()).filter(Boolean),
+      };
+      
       if (project) {
-        await updateProject.mutateAsync({ id: project.id, ...data } as any);
+        await updateProject.mutateAsync({ id: project.id, ...payload });
         toast.success('Project updated successfully');
       } else {
-        await createProject.mutateAsync(data as any);
+        await createProject.mutateAsync(payload);
         toast.success('Project created successfully');
       }
       onSuccess();
-    } catch (error) {
+    } catch {
       toast.error('Something went wrong');
     }
   };
