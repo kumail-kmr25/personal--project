@@ -37,7 +37,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative rounded-4xl overflow-hidden bg-white dark:bg-slate-900 border border-border shadow-sm hover:shadow-2xl transition-all duration-500"
+      className="group relative rounded-4xl overflow-hidden bg-surface border border-border shadow-sm hover:shadow-2xl transition-all duration-500"
     >
       {/* Image Section */}
       <div className="aspect-video relative overflow-hidden">
@@ -85,7 +85,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       {/* Content Section */}
       <div className="p-8 space-y-4">
         <div className="flex justify-between items-start">
-          <h3 className="text-xl font-extrabold uppercase tracking-tight">{project.title}</h3>
+          <h3 className="text-xl font-extrabold uppercase tracking-tight text-text-primary">{project.title}</h3>
           <span className="text-[10px] font-bold text-text-muted">{project.year}</span>
         </div>
         
@@ -130,9 +130,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             href={`/projects/${project.id}`}
             className="flex items-center justify-between w-full p-4 bg-surface rounded-2xl border border-border group/btn hover:bg-primary hover:border-primary transition-all duration-300"
           >
-            <span className="text-[10px] font-extrabold uppercase tracking-widest group-hover/btn:text-white transition-colors">
-              View Case Study
-            </span>
+<span className="text-[10px] font-extrabold uppercase tracking-widest text-text-primary group-hover/btn:text-white transition-colors">
+            View Case Study
+          </span>
             <ArrowRight className="w-4 h-4 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
           </a>
         </div>

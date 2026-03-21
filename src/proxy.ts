@@ -9,5 +9,5 @@ export const proxy = withAuth({
 export default proxy;
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin', '/admin/:path*'],
 };

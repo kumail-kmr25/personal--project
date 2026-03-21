@@ -1,8 +1,9 @@
 'use client';
 
 import type { ComponentType } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
+  X,
   ArrowRight,
   BriefcaseBusiness,
   Clock3,
@@ -203,7 +204,7 @@ export function HomePage() {
       {/* Navigation */}
       <nav className='fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-xl'>
         <div className='mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 lg:px-8'>
-          <a href='#home' className='flex items-center gap-2 text-xl font-bold tracking-tight'>
+          <a href='#home' className='flex items-center gap-2 text-xl font-bold tracking-tight text-text-primary'>
             <span className='text-primary'>&lt;</span>
             <span>{String(siteSettings['site_name'] || 'kk').split(' ')[0]}</span>
             <span className='text-primary'> /&gt;</span>
@@ -217,7 +218,7 @@ export function HomePage() {
             <button
               type='button'
               onClick={toggleDarkMode}
-              className='rounded-xl border border-border bg-surface/70 p-2 text-text-secondary transition-all hover:bg-primary/10 hover:text-primary'
+              className='rounded-xl border border-border bg-surface/70 p-2 text-text-primary transition-all hover:bg-primary/10 hover:text-primary'
             >
               {darkMode ? <Sun className='h-4 w-4' /> : <Moon className='h-4 w-4' />}
             </button>
@@ -229,14 +230,80 @@ export function HomePage() {
             </a>
           </div>
           <div className='flex items-center gap-2 md:hidden'>
-            <button onClick={toggleDarkMode} className='rounded-xl border border-border bg-surface p-2.5 text-text-secondary'>
+            <button onClick={toggleDarkMode} className='rounded-xl border border-border bg-surface p-2.5 text-text-primary'>
               {darkMode ? <Sun className='h-5 w-5' /> : <Moon className='h-5 w-5' />}
             </button>
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className='rounded-xl border border-border bg-surface p-2.5 text-text-secondary'>
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className='rounded-xl border border-border bg-surface p-2.5 text-text-primary'>
                <Menu className='h-5 w-5' />
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className='fixed inset-0 z-[60] flex flex-col bg-background/95 backdrop-blur-2xl md:hidden'
+            >
+              <div className='flex items-center justify-between px-6 h-20 border-b border-border/60'>
+                <a href='#home' onClick={() => setMobileMenuOpen(false)} className='flex items-center gap-2 text-xl font-bold tracking-tight text-text-primary'>
+                  <span className='text-primary'>&lt;</span>
+                  <span>{String(siteSettings['site_name'] || 'kk').split(' ')[0]}</span>
+                  <span className='text-primary'> /&gt;</span>
+                </a>
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className='rounded-xl border border-border bg-surface p-2.5 text-text-primary'
+                >
+                  <X className='h-5 w-5' />
+                </button>
+              </div>
+              
+              <div className='flex-1 overflow-y-auto py-12 px-6 flex flex-col items-center gap-8'>
+                {navItems.map((item, index) => (
+                  <motion.a
+                    key={item.href}
+                    href={item.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className='text-2xl font-extrabold uppercase tracking-widest text-text-primary hover:text-primary transition-colors'
+                  >
+                    {item.label}
+                  </motion.a>
+                ))}
+                
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: navItems.length * 0.1 }}
+                  className='pt-8 border-t border-border w-full flex flex-col items-center gap-8'
+                >
+                  <button
+                    type='button'
+                    onClick={toggleDarkMode}
+                    className='flex items-center gap-3 rounded-2xl border border-border bg-surface/70 px-8 py-4 text-sm font-extrabold uppercase tracking-widest text-text-primary transition-all hover:bg-primary/10 hover:text-primary'
+                  >
+                    {darkMode ? <><Sun className='h-5 w-5' /> Light Mode</> : <><Moon className='h-5 w-5' /> Dark Mode</>}
+                  </button>
+                  
+                  <a
+                    href='#contact'
+                    onClick={() => setMobileMenuOpen(false)}
+                    className='w-full text-center rounded-2xl bg-primary px-8 py-5 text-xs font-extrabold uppercase tracking-widest text-white shadow-lg shadow-primary/20 transition hover:bg-primary-hover active:scale-95'
+                  >
+                    Let&apos;s Talk
+                  </a>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main className='pt-20'>
@@ -256,10 +323,10 @@ export function HomePage() {
                 </span>
                 Full-Stack Developer &middot; Available for Projects
               </div>
-              <h1 className='text-5xl font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl leading-[1.1]'>
-                I Help Businesses <br />
-                <span className='text-primary decoration-4 underline underline-offset-8 decoration-primary/20'>3x Their Online Revenue</span> <br />
-                <span className='text-3xl sm:text-4xl lg:text-5xl text-text-secondary mt-4 block leading-tight tracking-tighter'>Through High-Performance Web Apps</span>
+              <h1 className='text-4xl font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl leading-[1.2] sm:leading-[1.1]'>
+                I Help Businesses <br className="hidden sm:block" />
+                <span className='text-primary decoration-4 underline underline-offset-8 decoration-primary/20 block sm:inline mt-2 sm:mt-0'>3x Their Online Revenue</span> <br className="hidden sm:block" />
+                <span className='text-2xl sm:text-4xl lg:text-5xl text-text-secondary mt-4 block leading-tight tracking-tighter'>Through High-Performance Web Apps</span>
               </h1>
               <p className='max-w-xl text-lg text-text-secondary sm:text-xl font-medium'>
                 {siteSettings['site_desc'] || "Full-Stack Developer specializing in Next.js, TypeScript, and PostgreSQL. I've helped 30+ businesses increase their online revenue by an average of 180%."}
@@ -281,7 +348,7 @@ export function HomePage() {
               transition={{ duration: 0.8 }}
               className='relative'
             >
-               <div className='grid grid-cols-2 gap-6'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'>
                   {[
                     { val: '300%', lab: 'Sales Increase', color: 'orange' },
                     { val: '15+', lab: 'Happy Clients', color: 'teal' },
@@ -291,14 +358,14 @@ export function HomePage() {
                     <motion.div
                       key={statIndex}
                       whileHover={{ y: -8, scale: 1.02 }}
-                      className='p-8 rounded-4xl border border-border/50 bg-surface/50 backdrop-blur-md shadow-2xl space-y-2'
+                      className='p-6 sm:p-8 rounded-3xl sm:rounded-4xl border border-border/50 bg-surface/50 backdrop-blur-md shadow-2xl space-y-1 sm:space-y-2'
                     >
-                       <span className={`text-4xl font-extrabold tracking-tighter text-${stat.color}-500`}>{stat.val}</span>
-                       <p className='text-xs font-extrabold uppercase tracking-widest text-text-secondary'>{stat.lab}</p>
+                       <span className={`text-3xl sm:text-4xl font-extrabold tracking-tighter ${stat.color === 'orange' ? 'text-orange-500' : stat.color === 'teal' ? 'text-teal-500' : stat.color === 'blue' ? 'text-blue-500' : 'text-purple-500'}`}>{stat.val}</span>
+                       <p className='text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-text-secondary'>{stat.lab}</p>
                     </motion.div>
                   ))}
-               </div>
-               <div className='absolute -z-10 bg-primary/10 blur-[120px] rounded-full w-full h-full' />
+                </div>
+                <div className='absolute -z-10 bg-primary/10 blur-[80px] sm:blur-[120px] rounded-full w-full h-full' />
             </motion.div>
           </div>
         </section>
@@ -333,7 +400,7 @@ export function HomePage() {
                 <motion.div 
                   animate={{ rotate: 360 }} 
                   transition={{ repeat: Infinity, duration: 25, ease: "linear" }} 
-                  className="absolute inset-[-40px] rounded-full border border-dashed border-primary/20 pointer-events-none"
+                  className="absolute inset-[-20px] sm:inset-[-40px] rounded-full border border-dashed border-primary/20 pointer-events-none hidden xs:block"
                 >
                   {[
                     { Icon: Code2, pos: 'top-[-20px] left-1/2 -translate-x-1/2' },
@@ -441,10 +508,10 @@ export function HomePage() {
             <div className='flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16'>
               <div className='max-w-xl'>
                  <SectionBadge label='Our Portfolio' />
-                 <h2 className='text-4xl font-extrabold mt-4 tracking-tight uppercase'>Featured Projects</h2>
+                 <h2 className='text-4xl font-extrabold mt-4 tracking-tight uppercase text-text-primary'>Featured Projects</h2>
                  <p className='text-lg text-text-secondary mt-4 font-medium'>Real results from architectural excellence.</p>
               </div>
-              <Link href="/projects" className="px-8 py-3 bg-white dark:bg-slate-900 border border-border rounded-2xl text-xs font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
+              <Link href="/projects" className="px-8 py-3 bg-surface border border-border rounded-2xl text-xs font-extrabold uppercase tracking-widest text-text-primary hover:bg-primary hover:text-white transition-all">
                 See All Work
               </Link>
             </div>
@@ -468,19 +535,19 @@ export function HomePage() {
            <div className='mx-auto max-w-7xl px-6 lg:px-8'>
               <div className='text-center mb-20'>
                  <SectionBadge label='My Expertise' />
-                 <h2 className='text-5xl font-extrabold mt-6 tracking-tight uppercase'>Premium Solutions</h2>
+                 <h2 className='text-5xl font-extrabold mt-6 tracking-tight uppercase text-text-primary'>Premium Solutions</h2>
               </div>
               <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-4'>
                  {services.map((s) => (
                    <motion.div
                     key={s.id}
                     whileHover={{ y: -10 }}
-                    className='p-10 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-border shadow-sm hover:shadow-xl transition-all'
+                    className='p-10 rounded-[2.5rem] bg-surface border border-border shadow-sm hover:shadow-xl transition-all'
                    >
                       <div className='w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8'>
                          <s.icon className='w-7 h-7' />
                       </div>
-                      <h3 className='text-xl font-extrabold uppercase tracking-tight mb-4'>{s.name}</h3>
+                      <h3 className='text-xl font-extrabold uppercase tracking-tight mb-4 text-text-primary'>{s.name}</h3>
                       <p className='text-sm text-text-secondary mb-8 font-medium leading-relaxed'>{s.detail}</p>
                       <ul className='space-y-3'>
                          {s.bullets.map(b => (
@@ -502,7 +569,7 @@ export function HomePage() {
               <div className='flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16'>
                 <div>
                    <SectionBadge label='Insights' />
-                   <h2 className='text-4xl font-extrabold mt-4 tracking-tight uppercase'>Latest from the Blog</h2>
+                   <h2 className='text-4xl font-extrabold mt-4 tracking-tight uppercase text-text-primary'>Latest from the Blog</h2>
                 </div>
                 <button className='text-sm font-extrabold uppercase tracking-widest text-primary flex items-center gap-2 group'>
                    Explore all articles <ArrowRight className='w-4 h-4 group-hover:translate-x-1 transition-transform' />
@@ -514,7 +581,7 @@ export function HomePage() {
                    <motion.article
                      key={post.id}
                      whileHover={{ y: -10 }}
-                     className='flex flex-col bg-white dark:bg-slate-900 rounded-[2.5rem] border border-border shadow-sm overflow-hidden'
+                     className='flex flex-col bg-surface rounded-[2.5rem] border border-border shadow-sm overflow-hidden'
                    >
                       <div className='aspect-video relative overflow-hidden'>
                          {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -533,10 +600,10 @@ export function HomePage() {
                             <Clock3 className="w-3 h-3" />
                             5 min read
                          </div>
-                         <h3 className='text-xl font-extrabold uppercase leading-tight mb-4 transition-colors'>{post.title}</h3>
+                         <h3 className='text-xl font-extrabold uppercase leading-tight mb-4 transition-colors text-text-primary'>{post.title}</h3>
                          <p className='text-sm text-text-secondary line-clamp-2 mb-6 font-medium'>{post.excerpt}</p>
                          <div className="mt-auto pt-6 border-t border-border/50">
-                            <a href={`/blog/${post.slug}`} className='text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 hover:text-primary'>
+                            <a href={`/blog/${post.slug}`} className='text-xs font-extrabold uppercase tracking-widest flex items-center gap-2 text-text-primary hover:text-primary'>
                                 Read Article <ArrowRight className="w-3 h-3" />
                             </a>
                          </div>
