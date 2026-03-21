@@ -82,7 +82,7 @@ export function CodeTerminalLoading({ onComplete }: { onComplete: () => void }) 
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="fixed inset-0 z-50 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center p-4 lg:p-12"
+      className="fixed inset-0 z-50 bg-linear-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center p-4 lg:p-12"
     >
       <div className="w-full max-w-4xl max-h-[90vh] flex flex-col">
         {/* Terminal Window */}
@@ -139,7 +139,7 @@ export function CodeTerminalLoading({ onComplete }: { onComplete: () => void }) 
             </div>
             <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                className="h-full bg-linear-to-r from-blue-500 to-purple-500"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.3 }}
