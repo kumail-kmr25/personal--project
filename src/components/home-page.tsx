@@ -253,13 +253,13 @@ export function HomePage() {
                 </span>
                 Full-Stack Developer &middot; Available for Projects
               </div>
-              <h1 className='text-5xl font-extrabold tracking-tight text-text-primary sm:text-7xl leading-[1.1]'>
-                I Build Web Apps <br />
-                That Scale To <br />
-                <span className='text-primary decoration-4 underline underline-offset-8 decoration-primary/20'>Millions</span> of Users
+              <h1 className='text-5xl font-extrabold tracking-tight text-text-primary sm:text-6xl lg:text-7xl leading-[1.1]'>
+                I Help Businesses <br />
+                <span className='text-primary decoration-4 underline underline-offset-8 decoration-primary/20'>3x Their Online Revenue</span> <br />
+                <span className='text-3xl sm:text-4xl lg:text-5xl text-text-secondary mt-4 block leading-tight tracking-tighter'>Through High-Performance Web Apps</span>
               </h1>
               <p className='max-w-xl text-lg text-text-secondary sm:text-xl font-medium'>
-                {siteSettings['site_desc'] || "Specialized in TypeScript, Next.js, and PostgreSQL. I create premium web experiences that convert visitors into loyal customers."}
+                {siteSettings['site_desc'] || "Full-Stack Developer specializing in Next.js, TypeScript, and PostgreSQL. I've helped 30+ businesses increase their online revenue by an average of 180%."}
               </p>
 
               <div className='flex items-center gap-8 pt-4'>
