@@ -22,7 +22,10 @@ import {
   Zap,
   ShoppingCart,
   UserRound,
-  LayoutDashboard
+  LayoutDashboard,
+  DollarSign,
+  MessageSquare,
+  Send
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -625,63 +628,148 @@ export function HomePage() {
                           </div>
                        </div>
                     </div>
-                 </div>
+                 </div>                  <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className='relative p-10 sm:p-12 rounded-[3.5rem] bg-surface/50 backdrop-blur-2xl border border-border/80 shadow-2xl overflow-hidden'
+                  >
+                     <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none' />
+                     <form onSubmit={handleSubmit(onSubmit)} className='relative z-10 space-y-8'>
+                        
+                        <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+                           {/* First Name Field */}
+                           <motion.div 
+                             initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+                             className='group relative'
+                           >
+                              <div className='absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-text-muted group-focus-within:text-primary transition-colors'>
+                                 <UserRound className='w-5 h-5' />
+                              </div>
+                              <input 
+                                 {...register('firstName')}
+                                 id="firstName"
+                                 className='peer w-full h-16 bg-background/50 border border-border rounded-3xl pl-14 pr-6 pt-5 font-bold focus:bg-background focus:ring-4 focus:ring-primary/10 focus:border-primary/30 outline-none transition-all placeholder-transparent' 
+                                 placeholder='John' 
+                              />
+                              <label htmlFor="firstName" className='absolute left-14 top-5 text-[10px] font-extrabold uppercase tracking-widest text-text-muted transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-xs peer-placeholder-shown:text-text-secondary peer-focus:top-2 peer-focus:text-[9px] peer-focus:text-primary cursor-text pointer-events-none'>
+                                 First Name
+                              </label>
+                           </motion.div>
 
-                 <div className='bg-white dark:bg-slate-900 p-10 rounded-[3rem] border border-border shadow-2xl'>
-                    <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
-                       <div className='grid grid-cols-2 gap-6'>
-                          <div className='space-y-2'>
-                             <label className='text-[10px] font-extrabold uppercase tracking-widest text-text-muted ml-1'>First Name</label>
-                             <input 
-                                {...register('firstName')}
-                                className='w-full h-14 bg-surface border border-border rounded-2xl px-6 font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all' 
-                                placeholder='John' 
-                             />
-                          </div>
-                          <div className='space-y-2'>
-                             <label className='text-[10px] font-extrabold uppercase tracking-widest text-text-muted ml-1'>Last Name</label>
-                             <input 
-                                {...register('lastName')}
-                                className='w-full h-14 bg-surface border border-border rounded-2xl px-6 font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all' 
-                                placeholder='Doe' 
-                             />
-                          </div>
-                       </div>
-                       <div className='space-y-2'>
-                          <label className='text-[10px] font-extrabold uppercase tracking-widest text-text-muted ml-1'>Email Address</label>
-                          <input 
-                             {...register('email')}
-                             className='w-full h-14 bg-surface border border-border rounded-2xl px-6 font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all' 
-                             placeholder='john@company.com' 
-                          />
-                       </div>
-                       <div className='space-y-2'>
-                          <label className='text-[10px] font-extrabold uppercase tracking-widest text-text-muted ml-1'>Budget Range</label>
-                          <select 
-                             {...register('budget')}
-                             className='w-full h-14 bg-surface border border-border rounded-2xl px-6 font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer'
-                          >
-                             {budgetOptions.map(o => <option key={o} value={o}>{o}</option>)}
-                          </select>
-                       </div>
-                       <div className='space-y-2'>
-                          <label className='text-[10px] font-extrabold uppercase tracking-widest text-text-muted ml-1'>Message</label>
-                          <textarea 
-                             {...register('message')}
-                             rows={4}
-                             className='w-full bg-surface border border-border rounded-2xl p-6 font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all resize-none' 
-                             placeholder='Tell me about your vision...' 
-                          />
-                       </div>
-                       <button 
-                        type='submit'
-                        disabled={isSubmitting}
-                        className='w-full h-16 bg-primary text-white rounded-4xl font-extrabold uppercase tracking-widest shadow-xl shadow-primary/30 hover:bg-primary-hover transition-all active:scale-95 disabled:opacity-50'
-                       >
-                          {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Start Project'}
-                       </button>
-                    </form>
-                 </div>
+                           {/* Last Name Field */}
+                           <motion.div 
+                             initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+                             className='group relative'
+                           >
+                              <div className='absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-text-muted group-focus-within:text-primary transition-colors'>
+                                 <UserRound className='w-5 h-5 opacity-70' />
+                              </div>
+                              <input 
+                                 {...register('lastName')}
+                                 id="lastName"
+                                 className='peer w-full h-16 bg-background/50 border border-border rounded-3xl pl-14 pr-6 pt-5 font-bold focus:bg-background focus:ring-4 focus:ring-primary/10 focus:border-primary/30 outline-none transition-all placeholder-transparent' 
+                                 placeholder='Doe' 
+                              />
+                              <label htmlFor="lastName" className='absolute left-14 top-5 text-[10px] font-extrabold uppercase tracking-widest text-text-muted transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-xs peer-placeholder-shown:text-text-secondary peer-focus:top-2 peer-focus:text-[9px] peer-focus:text-primary cursor-text pointer-events-none'>
+                                 Last Name
+                              </label>
+                           </motion.div>
+                        </div>
+
+                        {/* Email Field */}
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+                          className='group relative'
+                        >
+                           <div className='absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-text-muted group-focus-within:text-primary transition-colors'>
+                              <Mail className='w-5 h-5' />
+                           </div>
+                           <input 
+                              {...register('email')}
+                              id="email"
+                              type="email"
+                              className='peer w-full h-16 bg-background/50 border border-border rounded-3xl pl-14 pr-6 pt-5 font-bold focus:bg-background focus:ring-4 focus:ring-primary/10 focus:border-primary/30 outline-none transition-all placeholder-transparent' 
+                              placeholder='john@company.com' 
+                           />
+                           <label htmlFor="email" className='absolute left-14 top-5 text-[10px] font-extrabold uppercase tracking-widest text-text-muted transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-xs peer-placeholder-shown:text-text-secondary peer-focus:top-2 peer-focus:text-[9px] peer-focus:text-primary cursor-text pointer-events-none'>
+                              Email Address
+                           </label>
+                        </motion.div>
+
+                        {/* Budget Range Field */}
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
+                          className='group relative'
+                        >
+                           <div className='absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-text-muted group-focus-within:text-primary transition-colors'>
+                              <DollarSign className='w-5 h-5' />
+                           </div>
+                           <select 
+                              {...register('budget')}
+                              id="budget"
+                              className='peer w-full h-16 bg-background/50 border border-border rounded-3xl pl-14 pr-6 pt-5 font-bold focus:bg-background focus:ring-4 focus:ring-primary/10 focus:border-primary/30 outline-none transition-all appearance-none cursor-pointer'
+                           >
+                              {budgetOptions.map(o => <option key={o} value={o}>{o}</option>)}
+                           </select>
+                           <label htmlFor="budget" className='absolute left-14 top-2 text-[9px] font-extrabold uppercase tracking-widest text-text-muted transition-all peer-focus:text-primary cursor-pointer pointer-events-none'>
+                              Budget Range
+                           </label>
+                           {/* Custom Chevron for select */}
+                           <div className='absolute inset-y-0 right-0 pr-6 flex items-center pointer-events-none text-text-muted'>
+                              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                           </div>
+                        </motion.div>
+
+                        {/* Message Field */}
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.5 }}
+                          className='group relative'
+                        >
+                           <div className='absolute top-6 left-0 pl-5 flex items-start pointer-events-none text-text-muted group-focus-within:text-primary transition-colors'>
+                              <MessageSquare className='w-5 h-5' />
+                           </div>
+                           <textarea 
+                              {...register('message')}
+                              id="message"
+                              rows={4}
+                              className='peer w-full bg-background/50 border border-border rounded-3xl pl-14 pr-6 pt-8 pb-4 font-bold focus:bg-background focus:ring-4 focus:ring-primary/10 focus:border-primary/30 outline-none transition-all resize-none placeholder-transparent' 
+                              placeholder='Tell me about your vision...' 
+                           />
+                           <label htmlFor="message" className='absolute left-14 top-6 text-[10px] font-extrabold uppercase tracking-widest text-text-muted transition-all peer-placeholder-shown:top-8 peer-placeholder-shown:text-xs peer-placeholder-shown:text-text-secondary peer-focus:top-3 peer-focus:text-[9px] peer-focus:text-primary cursor-text pointer-events-none'>
+                              Project Details
+                           </label>
+                        </motion.div>
+
+                        {/* Submit Button */}
+                        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.6 }}>
+                           <button 
+                              type='submit'
+                              disabled={isSubmitting}
+                              className='group relative w-full h-16 bg-gradient-to-r from-primary to-blue-600 text-white rounded-3xl font-extrabold uppercase tracking-widest shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:hover:scale-100 overflow-hidden'
+                           >
+                              <div className='absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0' />
+                              <span className='relative z-10 flex items-center justify-center gap-3'>
+                                 {isSubmitting ? (
+                                    <>
+                                       <Loader2 className="w-5 h-5 animate-spin" /> 
+                                       Processing...
+                                    </>
+                                 ) : (
+                                    <>
+                                       <Send className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                                       Send Proposal
+                                    </>
+                                 )}
+                              </span>
+                           </button>
+                        </motion.div>
+
+                     </form>
+                  </motion.div>
               </div>
            </div>
         </section>
