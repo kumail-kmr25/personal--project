@@ -300,6 +300,138 @@ export function HomePage() {
           </div>
         </section>
 
+
+        {/* ABOUT SECTION */}
+        <section id="about" className="py-32 bg-background relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              
+              {/* Left: Image with Orbiting Icons */}
+              <div className="order-2 lg:order-1 relative mx-auto mt-10 lg:mt-0 w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src="/images/professional-photo.jpg" 
+                    alt="Kumail - Full-Stack Developer"
+                    className="w-full h-full object-cover rounded-full shadow-2xl border-8 border-surface aspect-square"
+                  />
+                  {/* Years of Experience Badge */}
+                  <div className="absolute -bottom-4 right-4 bg-primary text-white p-6 rounded-3xl shadow-xl z-20 border border-primary-hover">
+                    <div className="text-3xl font-extrabold">2+ Years</div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest mt-1">Building Web Apps</div>
+                  </div>
+                </motion.div>
+
+                {/* Orbiting Icons */}
+                <motion.div 
+                  animate={{ rotate: 360 }} 
+                  transition={{ repeat: Infinity, duration: 25, ease: "linear" }} 
+                  className="absolute inset-[-40px] rounded-full border border-dashed border-primary/20 pointer-events-none"
+                >
+                  {[
+                    { Icon: Code2, pos: 'top-[-20px] left-1/2 -translate-x-1/2' },
+                    { Icon: Zap, pos: 'bottom-[-20px] left-1/2 -translate-x-1/2' },
+                    { Icon: LayoutDashboard, pos: 'left-[-20px] top-1/2 -translate-y-1/2' },
+                    { Icon: Star, pos: 'right-[-20px] top-1/2 -translate-y-1/2' },
+                  ].map((item, i) => (
+                    <div key={i} className={`absolute ${item.pos}`}>
+                      <motion.div 
+                        animate={{ rotate: -360 }} 
+                        transition={{ repeat: Infinity, duration: 25, ease: "linear" }} 
+                        className="w-12 h-12 bg-surface border border-border rounded-2xl flex items-center justify-center shadow-lg pointer-events-auto"
+                      >
+                         <item.Icon className="w-5 h-5 text-primary" />
+                      </motion.div>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+              
+              {/* Right: Content */}
+              <div className="order-1 lg:order-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-[10px] font-extrabold uppercase tracking-widest text-primary mb-6">
+                  <span className='relative flex h-2 w-2'>
+                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75'></span>
+                    <span className='relative inline-flex h-2 w-2 rounded-full bg-primary'></span>
+                  </span>
+                  About Me
+                </div>
+                
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-text-primary leading-[1.1]">
+                  Hi, I&apos;m Kumail
+                </h2>
+                
+                <p className="text-lg text-text-secondary sm:text-xl font-medium mb-6 leading-relaxed">
+                  A full-stack developer who turns complex business challenges into 
+                  elegant, high-performing web applications. I specialize in 
+                  <strong className="text-text-primary px-1">Next.js, TypeScript, and PostgreSQL</strong>, and I&apos;ve 
+                  helped <strong className="text-primary px-1">30+ businesses</strong> increase their online revenue 
+                  by an average of <strong className="text-primary px-1">180%</strong>.
+                </p>
+                
+                <p className="text-base text-text-muted mb-6 leading-relaxed">
+                  My journey into development started during school when I built my 
+                  first website for a local business. Seeing how technology could 
+                  directly impact their revenue sparked something in me. Since then, 
+                  I&apos;ve worked with startups, agencies, and enterprises, delivering 
+                  <strong className="text-text-primary px-1">24+ projects</strong> that have collectively generated 
+                  millions in revenue for my clients.
+                </p>
+                
+                <p className="text-base text-text-muted mb-10 leading-relaxed">
+                  I believe great software is about more than just code — it&apos;s about 
+                  understanding the business problem, designing intuitive user 
+                  experiences, and building scalable solutions that grow with the 
+                  company. That&apos;s why I focus on not just meeting requirements, but 
+                  exceeding expectations and delivering <strong className="text-text-primary px-1">measurable results</strong>.
+                </p>
+                
+                {/* Stats */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                  <div className="p-4 rounded-3xl border border-border/50 bg-surface/50 transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <div className="text-2xl font-extrabold text-primary">18+</div>
+                    <div className="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">Projects Completed</div>
+                  </div>
+                  <div className="p-4 rounded-3xl border border-border/50 bg-surface/50 transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <div className="text-2xl font-extrabold text-primary">18+</div>
+                    <div className="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">Happy Clients</div>
+                  </div>
+                  <div className="p-4 rounded-3xl border border-border/50 bg-surface/50 transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <div className="text-2xl font-extrabold text-primary">$2.3M+</div>
+                    <div className="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">Revenue Gen</div>
+                  </div>
+                  <div className="p-4 rounded-3xl border border-border/50 bg-surface/50 transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <div className="text-2xl font-extrabold text-primary">98%</div>
+                    <div className="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">Satisfaction</div>
+                  </div>
+                </div>
+                
+                {/* CTAs */}
+                <div className="flex flex-wrap gap-4 items-center">
+                  <a 
+                    href="#contact" 
+                    className="rounded-2xl bg-primary px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-white shadow-lg shadow-primary/20 flex items-center gap-2 hover:bg-primary-hover active:scale-95 transition-all"
+                  >
+                    Let&apos;s Work Together <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href="/resume.pdf" 
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-2xl bg-surface border border-border px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-text-secondary hover:text-primary hover:border-primary/50 transition-all flex items-center gap-2 active:scale-95"
+                  >
+                    Download Resume
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* PROJECTS */}
         <section id='work' className='py-32 bg-surface/30'>
           <div className='mx-auto w-full max-w-7xl px-6 lg:px-8'>

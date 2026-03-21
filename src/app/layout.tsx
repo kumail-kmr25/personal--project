@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { DM_Sans, Space_Grotesk, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
 import { RootProviders } from '@/components/providers/root-providers';
+import { LoadingProvider } from '@/components/loading-provider';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -19,7 +20,7 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: 'kumail kmr - Web Developer',
+  title: 'Kumail-kmr | premium Full stack Developer',
   description:
     'Portfolio website for kumail kmr with a modern high-conversion web experience.',
 };
@@ -36,7 +37,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className='min-h-screen bg-background text-text-primary antialiased'>
-        <RootProviders>{children}</RootProviders>
+        <LoadingProvider>
+          <RootProviders>{children}</RootProviders>
+        </LoadingProvider>
       </body>
     </html>
   );
