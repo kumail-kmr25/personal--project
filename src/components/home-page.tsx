@@ -274,7 +274,7 @@ export function HomePage() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className='fixed inset-0 z-[60] flex flex-col bg-background/95 backdrop-blur-2xl md:hidden'
+              className='fixed inset-0 z-60 flex flex-col bg-background/95 backdrop-blur-2xl md:hidden'
             >
               <div className='flex items-center justify-between px-6 h-20 border-b border-border/60'>
                 <a href='#home' onClick={() => setMobileMenuOpen(false)} className='flex items-center gap-2 text-xl font-bold tracking-tight text-text-primary'>
@@ -731,7 +731,7 @@ export function HomePage() {
                     transition={{ duration: 0.6 }}
                     className='relative p-10 sm:p-12 rounded-[3.5rem] bg-surface/50 backdrop-blur-2xl border border-border/80 shadow-2xl overflow-hidden'
                   >
-                     <div className='absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none' />
+                     <div className='absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent pointer-events-none' />
                      <form onSubmit={handleSubmit(onSubmit)} className='relative z-10 space-y-8'>
                         
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
@@ -845,7 +845,7 @@ export function HomePage() {
                            <button 
                               type='submit'
                               disabled={isSubmitting}
-                              className='group relative w-full h-16 bg-gradient-to-r from-primary to-blue-600 text-white rounded-3xl font-extrabold uppercase tracking-widest shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:hover:scale-100 overflow-hidden'
+                              className='group relative w-full h-16 bg-linear-to-r from-primary to-blue-600 text-white rounded-3xl font-extrabold uppercase tracking-widest shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:hover:scale-100 overflow-hidden'
                            >
                               <div className='absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0' />
                               <span className='relative z-10 flex items-center justify-center gap-3'>
