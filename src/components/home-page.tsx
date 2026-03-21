@@ -846,7 +846,7 @@ export function HomePage() {
          <div className='mx-auto max-w-7xl px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8'>
             <div className='flex flex-col items-center md:items-start'>
                <a href='#home' className='text-3xl font-extrabold tracking-tighter mb-4'>
-                 {siteSettings['site_name'] || 'KK Portfolio'}
+                 {siteSettings['site_name'] || 'kumailkmr - portfolio v2.0'}
                </a>
                <p className='text-sm font-medium text-text-muted'>&copy; {new Date().getFullYear()} All rights reserved.</p>
             </div>

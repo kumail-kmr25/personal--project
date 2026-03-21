@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   const settings = [
-    { key: 'site_name', value: 'KK Portfolio', label: 'Site Name', group: 'General' },
+    { key: 'site_name', value: 'kumailkmr - portfolio v2.0', label: 'Site Name', group: 'General' },
     { key: 'admin_email', value: 'kumailkmr.dev@gmail.com', label: 'Admin Email', group: 'General' },
     { key: 'site_desc', value: 'Creative Developer & Designer specializing in premium web experiences.', label: 'Description', group: 'General' },
     { key: 'branding_color', value: '#3b82f6', label: 'Brand Color', group: 'Appearance' },
@@ -74,7 +74,7 @@ async function main() {
       description: 'Scalable backend infrastructure supporting millions of requests with Redis caching.',
       category: 'API/Backend',
       status: 'PUBLISHED' as const,
-      image: 'https://images.unsplash.com/photo-1558494943-9839bd4d31e6',
+      image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8',
       techStack: ['Node.js', 'Express', 'Redis', 'Docker'],
       metrics: [
         { label: 'Requests', value: '1M/hr', icon: 'Zap' },

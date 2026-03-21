@@ -79,7 +79,7 @@ export const MOCK_PROJECTS: Project[] = [
     description: 'Scalable backend infrastructure supporting millions of requests with Redis caching.',
     category: 'API/Backend',
     status: 'PUBLISHED',
-    image: 'https://images.unsplash.com/photo-1558494943-9839bd4d31e6',
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8',
     techStack: ['Node.js', 'Express', 'Redis', 'Docker'],
     metrics: [
       { label: 'Requests', value: '1M/hr', icon: 'Zap' },
